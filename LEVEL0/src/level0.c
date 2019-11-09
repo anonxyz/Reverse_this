@@ -8,15 +8,15 @@ int main(int argc,char *argv[])
 
     if(argc!=2)
     {
-        printf("Usage:level0.exe enter_the_password_here");
+        printf("Usage:level0.exe enter_the_password_here\n");
         exit(1);
     }
     if(strcmp(password,argv[1])==0)
     {
-        printf("Correct credentials %s",argv[1]);
+        printf("Correct credentials %s\n",argv[1]);
     }
     else{
-        printf("WRONG PASSWORD");
+        printf("WRONG PASSWORD\n");
         exit(1);
     }
 return 0;
