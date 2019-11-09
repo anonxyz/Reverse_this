@@ -13,16 +13,16 @@ void decrypt(char password[])
     }
     if(strcmp(password,enc)==0)
     {
-        printf("ACCESS GRANTED");
+        printf("ACCESS GRANTED\n");
     }
-    else{printf("WRONG PASSWORD");}
+    else{printf("WRONG PASSWORD\n");}
 
 }
 int main(int argc,char *argv[])
 {
     if(argc!=2)
     {
-        printf("USAGE:LEVELXOR.exe enter_Pass_here");
+        printf("USAGE:LEVELXOR.exe enter_Pass_here\n");
         exit(1);
     }
 
