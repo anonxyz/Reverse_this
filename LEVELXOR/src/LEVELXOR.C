@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 
-void decrypt(char password[])
+void decrypt(char const password[])
 {
     char key[]="12345678";
     char enc[]="C]\\@GYXL";
