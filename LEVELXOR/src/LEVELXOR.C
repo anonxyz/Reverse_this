@@ -7,8 +7,7 @@ void decrypt(char password[])
     char key[]="12345678";
     char enc[]="C]\\@GYXL";
     int i;
-    int len=strlen(enc);
-    for (i=0;i<=len;i++)
+    for (i=0;enc[i] != '\0';i++)
     {
         enc[i]=enc[i] ^ key[i]; 
     }
