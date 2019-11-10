@@ -5,7 +5,9 @@
 void decrypt(char const password[]);
 char xor_gate(char const a, char const b);
 char nand(char const a, char const b);
-
+char nor(char const a, char const b);
+char and_gate(char const a, char const b);
+char or_gate(char const a, char const b);
 int main(int argc,char *argv[])
 {
     if(argc!=2)
@@ -43,5 +45,20 @@ char xor_gate(char const a, char const b)
 
 char nand(char const a, char const b)
 {
-    return ~(a & b);
+    return nor(and_gate(a,b),and_gate(a,b));
+}
+
+char nor(char const a, char const b)
+{
+    return ~or_gate(a,b);
+}
+
+char and_gate(char const a, char const b)
+{
+    return nor(nor(a,a), nor(b,b));
+}
+
+char or_gate(char const a, char const b)
+{
+    return ~(~(a & a) & ~(b & b));
 }
