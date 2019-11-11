@@ -1,13 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-
-void decrypt(char const password[]);
-char xor_gate(char const a, char const b);
-char nand(char const a, char const b);
-char nor(char const a, char const b);
-char and_gate(char const a, char const b);
-char or_gate(char const a, char const b);
+#include "LEVELXOR.h"
 int main(int argc,char *argv[])
 {
     if(argc!=2)
@@ -23,8 +17,14 @@ int main(int argc,char *argv[])
 
 void decrypt(char const password[])
 {
-    char key[]="12345678";
-    char enc[]="C]\\@GYXL";
+    char coder[] = {(char) 0x8A,(char) 0xC8,(char) 0xCA,
+                    (char) 0x8C,(char) 0x8E,(char) 0xCC,
+                    (char) 0xCE,(char) 0x98,(char) 0x00};
+
+    
+    char key[SIZE];
+    unmix_string_nibbles((char*)coder, key, SIZE, SIZE); // get key
+    char enc[]="C]\\@GYXL"; // get data
     int i;
     for (i=0;enc[i] != '\0';i++)
     {
@@ -61,4 +61,46 @@ char and_gate(char const a, char const b)
 char or_gate(char const a, char const b)
 {
     return ~(~(a & a) & ~(b & b));
+}
+
+char unmix_bits_val(char const byte)
+{
+    unsigned char result = 0;
+    union BYTE decoded = {0};
+
+    decoded.bits.b6 = (byte & (1<<0)) ? 1: 0;
+    decoded.bits.b0 = (byte & (1<<1)) ? 1: 0;
+    decoded.bits.b2 = (byte & (1<<2)) ? 1: 0;
+    decoded.bits.b5 = (byte & (1<<3)) ? 1: 0;
+    decoded.bits.b3 = (byte & (1<<4)) ? 1: 0;
+    decoded.bits.b7 = (byte & (1<<5)) ? 1: 0;
+    decoded.bits.b1 = (byte & (1<<6)) ? 1: 0;
+    decoded.bits.b4 = (byte & (1<<7)) ? 1: 0;
+
+    return decoded.data;
+
+}
+
+void unmix_string_nibbles(char * const input, char *output,
+                           size_t const input_len, size_t const output_len )
+{
+    if(!input || !output)
+    {
+        fprintf(stderr, "unmix_string_nibbles: Invalid input");
+        return;
+    }
+
+    if(input_len > output_len)
+    {
+        fprintf(stderr,"unmix_string_nibbles: Output buffer too small for input size!");
+        return;
+    }
+
+    size_t ctr1, ctr2;
+
+    for(ctr1 = 0; ctr1 < input_len; ctr1++)
+    {
+        output[ctr1] = unmix_bits_val(input[ctr1]);
+    }
+    return;
 }
