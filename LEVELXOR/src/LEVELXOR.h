@@ -18,7 +18,7 @@
 
     };
 
-    void decrypt(char const password[]);
+    void decrypt(char password[]);
     char xor_gate(char const a, char const b);
     char nand(char const a, char const b);
     char nor(char const a, char const b);
@@ -27,5 +27,8 @@
     char unmix_bits_val(char const byte);
     void unmix_string_nibbles(char * const input, char *output,
                            size_t const input_len, size_t const output_len );
+    int dorigidoo(char * a, char * b);
+    char dogfafa(char rijn, char dael);
+    size_t lala_hula(size_t youcant, size_t doit);
 
 #endif
